@@ -1,12 +1,14 @@
 import { lazy } from 'react';
-import { BrowserRouter, Routes } from 'react-router';
+import { BrowserRouter, Routes, Route } from 'react-router';
 
 const Home = lazy(() => import('@pages/Home'));
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes></Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </BrowserRouter>
   );
 }

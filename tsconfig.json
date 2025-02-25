@@ -7,16 +7,16 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "@components": ["./components/*"],
-      "@assets": ["./assets/*"],
-      "@pages": ["./pages/*"],
-      "@hooks": ["./hooks/*"],
-      "@store": ["./store/*"],
-      "@constants": ["./constants/*"],
-      "@typings": ["./typings/*"],
-      "@apis": ["./apis/*"],
-      "@firebase": ["./firebase/*"],
-      "@utils": ["./utils/*"]
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["assets/*"],
+      "@pages/*": ["pages/*"],
+      "@hooks/*": ["hooks/*"],
+      "@store/*": ["store/*"],
+      "@constants/*": ["constants/*"],
+      "@typings/*": ["typings/*"],
+      "@apis/*": ["apis/*"],
+      "@firebase/*": ["firebase/*"],
+      "@utils/*": ["utils/*"]
     }
   },
 
