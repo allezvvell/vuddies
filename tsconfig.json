@@ -3,22 +3,20 @@
     "target": "ESNext",
     "module": "ESNext",
     "strict": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true,
     "jsx": "react-jsx",
+    "moduleResolution": "node",
     "baseUrl": "./src",
-    "moduleResolution": "bundler",
     "paths": {
-      "@components": ["./components/*"],
-      "@assets": ["./assets/*"],
-      "@pages": ["./pages/*"],
-      "@hooks": ["./hooks/*"],
-      "@store": ["./store/*"],
-      "@constants": ["./constants/*"],
-      "@typings": ["./typings/*"],
-      "@apis": ["./apis/*"],
-      "@firebase": ["./firebase/*"],
-      "@utils": ["./utils/*"]
+      "@components/*": ["components/*"],
+      "@assets/*": ["assets/*"],
+      "@pages/*": ["pages/*"],
+      "@hooks/*": ["hooks/*"],
+      "@store/*": ["store/*"],
+      "@constants/*": ["constants/*"],
+      "@typings/*": ["typings/*"],
+      "@apis/*": ["apis/*"],
+      "@firebase/*": ["firebase/*"],
+      "@utils/*": ["utils/*"]
     }
   },
 
