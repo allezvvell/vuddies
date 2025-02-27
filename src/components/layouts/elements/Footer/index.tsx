@@ -1,5 +1,7 @@
+import { SFooter } from './styles';
+
 const Footer = () => {
-  return <>footer</>;
+  return <SFooter>footer</SFooter>;
 };
 
 export default Footer;
