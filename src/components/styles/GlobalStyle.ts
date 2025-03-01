@@ -35,7 +35,9 @@ html {
     --text-color-default : #333;
     --text-color-white: #fff;
     --text-color-gray1:rgb(141, 141, 141);
+    --text-color-gray2: #ced4da;
     --bg-color-white: #fff;
+    --bg-color-ivory: #FFF3E0;
 
     //size
     --header-height: 68px;
@@ -83,7 +85,7 @@ img {
     width: 100%;
 }
 
-input[type='text'] {
+input[type='text'],input[type='password'],input[type='email'] {
     outline: none;
     border: none;
 }
