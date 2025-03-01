@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../typings/user';
+import { AppUser } from '../../typings/user';
 
 interface UserState {
-  user: User | null;
+  user: AppUser | null;
 }
 
 const initialState: UserState = {
@@ -13,7 +13,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: (state, action: PayloadAction<User>) => {
+    signIn: (state, action: PayloadAction<AppUser>) => {
       state.user = action.payload;
     },
     signOut: (state) => {

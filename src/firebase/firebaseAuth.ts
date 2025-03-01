@@ -5,10 +5,20 @@ import {
   onAuthStateChanged,
   signOut,
   User,
+  updateProfile,
 } from 'firebase/auth';
 
 export const signUp = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const updateUserInfo = (displayName: string, photoUrl?: string) => {
+  if (auth.currentUser) {
+    return updateProfile(auth.currentUser, {
+      displayName,
+      ...(photoUrl ? { photoUrl } : {}),
+    });
+  }
 };
 
 export const signIn = (email: string, password: string) => {

@@ -5,6 +5,7 @@ import { pageTitle } from '@components/styles/mixins';
 
 const SWrap = styled.div`
   padding: 32px 0;
+  min-height: 100vh;
   background-color: var(--bg-color-ivory);
 
   > div {
@@ -40,7 +41,7 @@ const SForm = styled.form`
   width: 100%;
 `;
 
-const SField = styled.form`
+const SField = styled.div`
   display: flex;
   flex-direction: column;
 

@@ -3,3 +3,5 @@ export interface User {
   displayName: string | null;
   photoUrl: string | null;
 }
+
+export type AppUser = Pick<User, 'uid' | 'displayName' | 'photoUrl'>;
