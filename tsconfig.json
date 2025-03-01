@@ -17,8 +17,10 @@
       "@apis/*": ["apis/*"],
       "@firebase/*": ["firebase/*"],
       "@utils/*": ["utils/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"]
   },
 
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
