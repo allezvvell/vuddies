@@ -1,27 +1,33 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router';
-
-const MainLayout = lazy(() => import('@components/layouts/MainLayout'));
-const Home = lazy(() => import('@pages/Home'));
-const SignIn = lazy(() => import('@pages/SignIn'));
-const SignUp = lazy(() => import('@pages/SignUp'));
-const MyPage = lazy(() => import('@pages/MyPage'));
-const NotFound = lazy(() => import('@pages/NotFound'));
+import { useEffect } from 'react';
+import { BrowserRouter } from 'react-router';
+import AppRouter from 'routes';
+import { addAuthStateListener } from '@firebase/firebaseAuth';
+import useUser from '@hooks/redux/useUser';
 
 function App() {
+  const { setUser, removeUser } = useUser();
+
+  useEffect(() => {
+    const unscribe = addAuthStateListener((user) => {
+      if (user) {
+        console.log('user 존재', user);
+        setUser({
+          uid: user.uid,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+        });
+      } else {
+        console.log('user x');
+        removeUser();
+      }
+    });
+
+    return () => unscribe();
+  }, []);
+
   return (
     <BrowserRouter>
-      <Suspense fallback="loading...">
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index={true} element={<Home />} />
-            <Route path="signin" element={<SignIn />} />
-            <Route path="user/mypage" element={<MyPage />} />
-          </Route>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+      <AppRouter />
     </BrowserRouter>
   );
 }
