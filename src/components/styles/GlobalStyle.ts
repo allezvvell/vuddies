@@ -33,9 +33,13 @@ html {
     --tertiary-color: #FFF3E0;
     --accent-color: #20BA9B;
     --text-color-default : #333;
+    --text-color-accent: #20BA9B;
+    --text-color-error: tomato;
+    --text-color-success: #007bff;
     --text-color-white: #fff;
     --text-color-gray1:rgb(141, 141, 141);
     --text-color-gray2: #ced4da;
+    --btn-color-gray1:rgb(232, 232, 232);
     --bg-color-white: #fff;
     --bg-color-ivory: #FFF3E0;
 

@@ -37,7 +37,7 @@ const STitle = styled.h2`
 const SForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   width: 100%;
 `;
 
@@ -49,6 +49,7 @@ const SField = styled.div`
     margin-bottom: 8px;
     font-size: 16px;
   }
+
   > div {
     display: flex;
     align-items: center;
@@ -63,9 +64,22 @@ const SField = styled.div`
     }
 
     button {
+      padding: 0 8px;
       margin-left: 8px;
+      height: 44px;
+      font-size: 12px;
+      background-color: var(--btn-color-gray1);
+      border-radius: 4px;
     }
   }
+`;
+
+const SInputMessage = styled.p<{ $variant?: 'success' }>`
+  padding-top: 8px;
+  color: ${({ $variant }) =>
+    $variant === 'success'
+      ? 'var(--text-color-success)'
+      : 'var(--text-color-error)'};
 `;
 
 const SSubmitButton = styled.button`
@@ -77,4 +91,4 @@ const SSubmitButton = styled.button`
   border-radius: 4px;
 `;
 
-export { SWrap, SLogo, STitle, SForm, SField, SSubmitButton };
+export { SWrap, SLogo, STitle, SForm, SField, SSubmitButton, SInputMessage };
