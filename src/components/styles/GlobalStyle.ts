@@ -41,6 +41,7 @@ html {
     --text-color-gray2: #ced4da;
     --btn-color-gray1:rgb(232, 232, 232);
     --bg-color-white: #fff;
+    --bg-color-modal: #fff;
     --bg-color-ivory: #FFF3E0;
 
     //size

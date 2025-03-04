@@ -3,6 +3,7 @@ import { ButtonProps } from '.';
 
 const fontSizeMap = {
   default: '14px',
+  medium: '16px',
   large: '20px',
 } as const;
 
@@ -32,9 +33,10 @@ const borderColorMap = {
   transparent: 'var(--text-color-gray1)',
 } as const;
 
-const radiusMap = {
-  default: '9999px',
-  square: '4px',
+const borderMap = {
+  default: '4px',
+  round: '9999px',
+  none: '0px',
 } as const;
 
 const SButton = styled.button<Omit<ButtonProps, 'children' | 'onClick'>>`
@@ -46,7 +48,7 @@ const SButton = styled.button<Omit<ButtonProps, 'children' | 'onClick'>>`
   color: ${({ $background }) => colorMap[$background || 'default']};
   background-color: ${({ $background }) =>
     backgroundMap[$background || 'default']};
-  border-radius: ${({ $variant }) => radiusMap[$variant || 'default']};
+  border-radius: ${({ $border }) => borderMap[$border || 'default']};
   border-width: 1px;
   border-style: solid;
   border-color: ${({ $background }) =>

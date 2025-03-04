@@ -6,17 +6,22 @@ import {
   signOut,
   User,
   updateProfile,
+  deleteUser,
 } from 'firebase/auth';
 
 export const signUp = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const updateUserInfo = (displayName: string, photoUrl?: string) => {
+export const deleteAccount = (user: User) => {
+  return deleteUser(user);
+};
+
+export const updateUserInfo = (displayName: string, photoURL?: string) => {
   if (auth.currentUser) {
     return updateProfile(auth.currentUser, {
       displayName,
-      ...(photoUrl ? { photoUrl } : {}),
+      ...(photoURL ? { photoURL } : {}),
     });
   }
 };
