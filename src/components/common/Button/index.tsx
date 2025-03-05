@@ -4,8 +4,8 @@ import { SButton } from './styles';
 export interface ButtonProps {
   children: ReactNode;
   onClick(): void;
-  $variant?: 'square';
-  $fontSize?: 'large';
+  $border?: 'round' | 'none';
+  $fontSize?: 'large' | 'medium';
   $fontWeight?: 'bold';
   $background?: 'secondary' | 'accent' | 'transparent';
 }
@@ -13,7 +13,7 @@ export interface ButtonProps {
 const Button = ({
   children,
   onClick,
-  $variant,
+  $border,
   $fontSize,
   $fontWeight,
   $background,
@@ -21,7 +21,7 @@ const Button = ({
   return (
     <SButton
       onClick={onClick}
-      $variant={$variant}
+      $border={$border}
       $fontSize={$fontSize}
       $fontWeight={$fontWeight}
       $background={$background}
