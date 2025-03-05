@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { pageTitle } from '@components/styles/mixins';
 
 const SForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
+  padding-top: 28px;
   width: 100%;
 `;
 
@@ -24,6 +24,7 @@ const SField = styled.div`
     input {
       flex: 1;
       padding: 0 16px;
+      min-width: 0;
       height: 44px;
       font-size: 16px;
       border: 1px solid var(--text-color-gray2);
@@ -35,7 +36,8 @@ const SField = styled.div`
       margin-left: 8px;
       height: 44px;
       font-size: 12px;
-      background-color: var(--btn-color-gray1);
+      color: #fff;
+      background-color: var(--accent-color);
       border-radius: 4px;
     }
   }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { signUp, updateUserInfo, deleteAccount } from '@firebase/firebaseAuth';
 import { addUser } from '@firebase/firebaseStore';
-import { SignUpFormValues } from '@typings/auth';
+import { SignUpFormIds, SignUpFormData, SignUpFormError } from '@typings/auth';
 import { User } from 'firebase/auth';
 import Validate from '@utils/Validate';
 import { checkDisplayName } from '@firebase/firebaseStore';
@@ -12,12 +12,15 @@ import { FirebaseError } from 'firebase/app';
 
 const validate = new Validate();
 
-const initialData = signUpFormIds.reduce((acc, curr) => {
-  acc[curr as (typeof signUpFormIds)[number]] = '';
-  return acc;
-}, {} as SignUpFormValues);
+const initialData = signUpFormIds.reduce(
+  (acc, curr) => {
+    acc[curr as SignUpFormIds] = curr === 'profileImage' ? null : '';
+    return acc;
+  },
+  {} as Record<SignUpFormIds, any>,
+);
 
-const initialError = { ...initialData };
+const initialError = { ...initialData, photoUrl: '' };
 
 const DISPLAY_NAME_MESSAGE = {
   isEmpty: '닉네임을 입력해주세요.',
@@ -27,13 +30,13 @@ const DISPLAY_NAME_MESSAGE = {
 } as const;
 
 const useSignUp = () => {
-  const [formData, setFormData] = useState(initialData);
-  const [formError, setFormError] = useState(initialError);
+  const [formData, setFormData] = useState<SignUpFormData>(initialData);
+  const [formError, setFormError] = useState<SignUpFormError>(initialError);
   const [displayNameCheck, setDisplayNameCheck] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState('');
 
-  const updateFormError = (key: keyof typeof initialError, value: string) => {
+  const updateFormError = (key: SignUpFormIds, value: string) => {
     setFormError((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -46,13 +49,17 @@ const useSignUp = () => {
     setError('');
   };
 
+  const updateProfileImage = (profileImage: File | null) => {
+    setFormData((prev) => ({ ...prev, profileImage }));
+  };
+
   const onChangeInput = (
     e: React.ChangeEvent<HTMLInputElement>,
-    id: keyof typeof initialData,
+    id: SignUpFormIds,
   ) => {
     const value = e.target.value;
     setFormData((prev) => ({ ...prev, [id]: value }));
-    const inputError = validate.validateSignUpInput(
+    const inputError = validate.validateSignUpField(
       id,
       value,
       id === 'passwordCheck' ? formData.password : undefined,
@@ -65,7 +72,8 @@ const useSignUp = () => {
   const validateDisplayName = async () => {
     if (
       formError.displayName &&
-      formError.displayName !== DISPLAY_NAME_MESSAGE.notChecked
+      formError.displayName !==
+        (DISPLAY_NAME_MESSAGE.notChecked || DISPLAY_NAME_MESSAGE.error)
     ) {
       return;
     }
@@ -111,10 +119,11 @@ const useSignUp = () => {
     setIsLoading(true);
     let newUser: User | null = null;
     try {
+      const photoUrl = await uploadImage(formData.profileImage!);
       const { user } = await signUp(email, password);
       newUser = user;
-      await updateUserInfo(displayName);
-      await addUser(user.uid, displayName);
+      await updateUserInfo(displayName, photoUrl);
+      await addUser(user.uid, displayName, photoUrl);
       resetFormData();
     } catch (error) {
       console.error(error);
@@ -152,6 +161,8 @@ const useSignUp = () => {
     isLoading,
     error,
     resetError,
+    updateProfileImage,
+    updateFormError,
   };
 };
 

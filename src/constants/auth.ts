@@ -1,4 +1,5 @@
 export const signUpFormFields = [
+  { id: 'profileImage', label: '프로필 이미지' },
   { id: 'email', label: '이메일', type: 'email' },
   { id: 'displayName', label: '닉네임', type: 'text' },
   { id: 'password', label: '비밀번호', type: 'password' },

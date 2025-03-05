@@ -1,15 +1,15 @@
 import { memo } from 'react';
 import { SForm, SField, SSubmitButton, SInputMessage } from './styles';
 import { signUpFormFields } from '@constants/auth';
-import { SignUpFormValues } from '@typings/auth';
+import { SignUpFormData, SignUpFormError, SignUpFormIds } from '@typings/auth';
 
 interface Props {
-  formData: SignUpFormValues;
-  formError: SignUpFormValues;
+  formData: SignUpFormData;
+  formError: SignUpFormError;
   onSubmitForm(e: React.FormEvent): void;
   onChangeInput(
     e: React.ChangeEvent<HTMLInputElement>,
-    id: keyof SignUpFormValues,
+    id: SignUpFormIds,
   ): void;
   validateDisplayName(): void;
   displayNameCheck: boolean;
@@ -25,9 +25,13 @@ const SignUpForm = ({
   validateDisplayName,
   isLoading,
 }: Props) => {
+  const onlyTextFields = [...signUpFormFields].filter(
+    (f) => f.id !== 'profileImage',
+  );
+
   return (
     <SForm onSubmit={onSubmitForm}>
-      {signUpFormFields.map((f) => (
+      {onlyTextFields.map((f) => (
         <SField key={f.id}>
           <label htmlFor={f.id}>{f.label}</label>
           <div>

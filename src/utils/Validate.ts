@@ -1,10 +1,18 @@
-import { SignUpFormValues } from '../typings/auth';
+import {
+  SignUpFormData,
+  SignUpFormError,
+  SignUpFormIds,
+} from '../typings/auth';
 import { signUpFormIds } from '@constants/auth';
 
 class Validate {
+  #profileImage = (imageFile: File | null) => {
+    return !imageFile ? '프로필 이미지를 등록해주세요.' : '';
+  };
+
   #email = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return !regex.test(email) ? '이메일 형식을 지켜주세요' : '';
+    return !regex.test(email) ? '이메일 형식을 지켜주세요.' : '';
   };
 
   #password = (password: string): string => {
@@ -26,38 +34,36 @@ class Validate {
       : '';
   };
 
-  #validatorMap = (
-    name: keyof SignUpFormValues,
-    password: string | undefined,
-  ) => {
+  #validatorMap = (name: SignUpFormIds, password: string | undefined) => {
     const validator = {
+      profileImage: this.#profileImage,
       email: this.#email,
       password: this.#password,
       passwordCheck: (v: string) => this.#passwordCheck(password!, v),
       displayName: this.#displayName,
     };
 
-    return validator[name];
+    return validator[name] as (data: string | File | null) => string;
   };
 
-  validateSignUpInput = (
-    name: keyof SignUpFormValues,
-    value: string,
+  validateSignUpField = <K extends SignUpFormIds>(
+    name: K,
+    data: SignUpFormData[K],
     password: string | undefined,
   ) => {
     const validator = this.#validatorMap(name, password);
-    return validator(value);
+    return validator(data);
   };
 
-  validateSignUpForm = (formData: SignUpFormValues) => {
+  validateSignUpForm = (formData: SignUpFormData) => {
     const errors = signUpFormIds.reduce((acc, curr) => {
       acc[curr] = '';
       return acc;
-    }, {} as SignUpFormValues);
+    }, {} as SignUpFormError);
 
     for (let k in formData) {
-      const typedK = k as keyof SignUpFormValues;
-      const errorMessage = this.validateSignUpInput(
+      const typedK = k as SignUpFormIds;
+      const errorMessage = this.validateSignUpField(
         typedK,
         formData[typedK],
         formData['password'],

@@ -43,7 +43,7 @@ const SModal = styled.div`
   top: 50%;
   z-index: 1200;
   min-width: 300px;
-  max-width: ${mediaQuery.laptop};
+  max-width: 600px;
   background-color: var(--bg-color-modal);
   border-radius: 8px;
   transform: translate(-50%, -50%);
